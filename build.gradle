@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation ('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'mysql:mysql-connector-java:8.0.18'
+    testImplementation 'postgresql:postgresql:9.0-801.jdbc4'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'db.url', System.getProperty('db.url')
+}
+
+
+
+
+
+
