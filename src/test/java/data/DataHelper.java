@@ -47,7 +47,7 @@ public class DataHelper {
     }
 
     public static String getYear() {
-        return String.format("%02d", faker.number().numberBetween(23, 29));
+        return String.format("%02d", faker.number().numberBetween(24, 29));
     }
 
     public static String getOwner() {
