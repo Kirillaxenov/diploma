@@ -18,6 +18,20 @@ public class DataHelper {
         return "4444444444444442";
     }
 
+    public static String getCardNumberNothing() {
+        return faker.number().digits(16);
+    }
+
+    public static String getCardNumberNotFilled() {
+        int randomNumberLength = faker.random().nextInt(16);
+        return faker.number().digits(randomNumberLength);
+
+    }
+
+    public static String getCardNumberEmpty() {
+        return "";
+    }
+
     public static String getMonthOneMonthAgo() {
         LocalDate currentDate = LocalDate.now();
         LocalDate oneMonthAgo = currentDate.minusMonths(1);
@@ -46,6 +60,18 @@ public class DataHelper {
         return String.format("%02d", faker.number().numberBetween(1, 13));
     }
 
+    public static String getInvalidMonth() {
+        return "00";
+    }
+
+    public static String getEmptyMonth() {
+        return "";
+    }
+
+    public static String getEmptyYear() {
+        return "";
+    }
+
     public static String getYear() {
         return String.format("%02d", faker.number().numberBetween(24, 29));
     }
@@ -54,7 +80,32 @@ public class DataHelper {
         return faker.name().fullName();
     }
 
+    public static String getNumberOwner() {
+        return faker.number().digit();
+    }
+
+    public static String getSpecialCharactersOwner() {
+        return "!@#$%^&*()_+-";
+    }
+
+    public static String getEmptyOwner() {
+        return "";
+    }
+
+
     public static String getCvc() {
         return faker.number().digits(3);
+    }
+
+    public static String get1Cvc() {
+        return faker.number().digits(1);
+    }
+
+    public static String get2Cvc() {
+        return faker.number().digits(2);
+    }
+
+    public static String getEmptyCvc() {
+        return "";
     }
 }
