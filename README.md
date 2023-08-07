@@ -1,4 +1,5 @@
 # Дипломная работа профессии «Тестировщик ПО»
+[Задание](https://github.com/netology-code/qa-diploma)
 ## Документы
 * [План автоматизации](https://github.com/Kirillaxenov/diploma/blob/main/documents/Plan.md)
 * [Отчёт по итогам тестирования](https://github.com/Kirillaxenov/diploma/blob/main/documents/Report.md)
