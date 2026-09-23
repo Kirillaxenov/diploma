@@ -14,6 +14,11 @@ public class DataHelper {
         return "4444444444444441";
     }
 
+    // Luhn-валидная карта, отсутствующая в базе банка (для проверки ошибки на стороне Payment/Credit Gate)
+    public static String getLuhnValidCardNumber() {
+        return "4444444444444448";
+    }
+
     public static String getCardNumberDeclined() {
         return "4444444444444442";
     }
@@ -64,6 +69,10 @@ public class DataHelper {
         return "00";
     }
 
+    public static String getMonth13() {
+        return "13";
+    }
+
     public static String getEmptyMonth() {
         return "";
     }
@@ -107,5 +116,25 @@ public class DataHelper {
 
     public static String getEmptyCvc() {
         return "";
+    }
+
+    public static String getMonthPlusOneYear() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate nextYear = currentDate.plusYears(1);
+        return nextYear.format(DateTimeFormatter.ofPattern("MM"));
+    }
+
+    public static String getCurrentYearPlus5() {
+        int currentYear = Integer.parseInt(getCurrentYear());
+        int yearPlus5 = currentYear + 5;
+        return String.format("%02d", yearPlus5 % 100);
+    }
+
+    public static String getCyrillicOwner() {
+        return "Иван Иванов";
+    }
+
+    public static String getFourDigitCvc() {
+        return faker.number().digits(4);
     }
 }

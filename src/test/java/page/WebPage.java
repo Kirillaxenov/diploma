@@ -8,6 +8,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class WebPage {
+    // Базовый адрес SUT берётся из системного свойства sut.url (по умолчанию http://localhost:8080)
+    private static final String SUT_URL = System.getProperty("sut.url", "http://localhost:8080");
+
     private SelenideElement buyButton = $$(".button__text").find(exactText("Купить"));
     private SelenideElement buyCreditButton = $$(".button__text").find(exactText("Купить в кредит"));
     private SelenideElement cardNumberField = $$(".input__inner").findBy(text("Номер карты"))
@@ -38,16 +41,29 @@ public class WebPage {
 
 
     public void buyWithCash() {
-        open("http://localhost:8080/");
+        open(SUT_URL + "/");
         buyButton.click();
         payCard.shouldBe(visible);
 
     }
 
     public void buyInCredit() {
-        open("http://localhost:8080/");
+        open(SUT_URL + "/");
         buyCreditButton.click();
         payCreditByCard.shouldBe(visible);
+    }
+
+    public void openMainPage() {
+        open(SUT_URL + "/");
+    }
+
+    // Открывает страницу напрямую (для тестов негативной навигации)
+    public void openUrl(String path) {
+        open(path);
+    }
+
+    public String getPageTitle() {
+        return title();
     }
 
 
@@ -102,5 +118,13 @@ public class WebPage {
 
     public void messageCardExpired() {
         cardExpired.shouldBe(visible);
+    }
+
+    public void noErrorMessage() {
+        messageError.shouldNotBe(visible, Duration.ofSeconds(5));
+    }
+
+    public void payCardShouldNotBeVisible() {
+        payCard.shouldNotBe(visible, Duration.ofSeconds(5));
     }
 }

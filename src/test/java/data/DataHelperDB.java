@@ -72,4 +72,41 @@ public class DataHelperDB {
             return 0;
         }
     }
+
+    public static long getPaymentEntityCount() {
+        return getTableCount("SELECT COUNT(*) FROM payment_entity;");
+    }
+
+    public static long getCreditRequestEntityCount() {
+        return getTableCount("SELECT COUNT(*) FROM credit_request_entity;");
+    }
+
+    private static long getTableCount(String countSQL) {
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            QueryRunner runner = new QueryRunner();
+            Long count = runner.query(conn, countSQL, new ScalarHandler<>());
+            return count != null ? count : 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    // Проверяет, что данные карты не сохраняются в СУБД (требование ТЗ)
+    public static boolean cardNumberStoredInDb(String cardNumber) {
+        String likePattern = "%" + cardNumber + "%";
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            QueryRunner runner = new QueryRunner();
+            Long payments = runner.query(conn,
+                    "SELECT COUNT(*) FROM payment_entity WHERE carddata LIKE ?;",
+                    new ScalarHandler<>(), likePattern);
+            Long credits = runner.query(conn,
+                    "SELECT COUNT(*) FROM credit_request_entity WHERE carddata LIKE ?;",
+                    new ScalarHandler<>(), likePattern);
+            return (payments != null && payments > 0) || (credits != null && credits > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
